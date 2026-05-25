@@ -1,10 +1,8 @@
-import type { NextConfig } from "next";
-
-const nextConfig: NextConfig = {
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
     remotePatterns: [
       {
-        // Sanity CDN for product and content images
         protocol: "https",
         hostname: "cdn.sanity.io",
       },
