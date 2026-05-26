@@ -1,18 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
-import { createClient } from "@supabase/supabase-js";
+import { getAdminClient } from "@/lib/supabase";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
-// Reservation window: 10 minutes
 const RESERVATION_MINUTES = 10;
 
 export async function POST(req: NextRequest) {
+  const supabase = getAdminClient();
   try {
     const { items } = await req.json();
     // items: Array<{ sanityId: string; name: string; priceCents: number; image: string }>
